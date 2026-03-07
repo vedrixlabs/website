@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedrix Labs - Ice Block Blast</title>
+    <meta name="description" content="Vedrix Labs presents Ice Block Blast - a frosty puzzle game with crystal blocks, strategic powerups, and endless fun. Download now on Android and iOS.">
+    <link rel="icon" type="image/png" href="assets/ice_block_blast_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0C1E33;
+            --navy-light: #122a45;
+            --navy-lighter: #1a3a5c;
+            --ice-blue: #5AAADC;
+            --ice-teal: #3CC3AA;
+            --ice-violet: #916ED2;
+            --ice-rose: #C8647D;
+            --ice-amber: #D2AA46;
+            --ice-mint: #4BC37D;
+            --glow-blue: #A0D7F5;
+            --glow-teal: #82DCC8;
+            --frost-white: #E8F4FA;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--navy);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Snowfall */
+        .snowfall {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 14px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(12, 30, 51, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(90, 170, 220, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--ice-blue), var(--ice-teal));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .nav-brand span {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(90, 170, 220, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-logo {
+            width: 280px;
+            margin: 0 auto 32px;
+            filter: drop-shadow(0 0 40px rgba(90, 170, 220, 0.3));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero-logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .hero-tagline {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--frost-white), var(--ice-blue), var(--glow-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--ice-blue), var(--ice-teal));
+            color: var(--navy);
+            box-shadow: 0 4px 24px rgba(90, 170, 220, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 32px rgba(90, 170, 220, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.14);
+            transform: translateY(-2px);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Crystal divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 60px 0;
+        }
+
+        .divider-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(90, 170, 220, 0.3), transparent);
+        }
+
+        .divider-diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--ice-blue);
+            transform: rotate(45deg);
+            opacity: 0.5;
+        }
+
+        /* Features */
+        .features {
+            position: relative;
+            z-index: 1;
+            padding: 40px 0 80px;
+        }
+
+        .section-label {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ice-blue);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 52px;
+            letter-spacing: -0.02em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 32px 28px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(90, 170, 220, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card:nth-child(1) .feature-icon { background: rgba(90, 170, 220, 0.12); }
+        .feature-card:nth-child(2) .feature-icon { background: rgba(60, 195, 170, 0.12); }
+        .feature-card:nth-child(3) .feature-icon { background: rgba(145, 110, 210, 0.12); }
+        .feature-card:nth-child(4) .feature-icon { background: rgba(200, 100, 125, 0.12); }
+        .feature-card:nth-child(5) .feature-icon { background: rgba(210, 170, 70, 0.12); }
+        .feature-card:nth-child(6) .feature-icon { background: rgba(75, 195, 125, 0.12); }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Powerups section */
+        .powerups {
+            position: relative;
+            z-index: 1;
+            padding: 40px 0 80px;
+        }
+
+        .powerups-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .powerup-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 40px 28px 32px;
+            text-align: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .powerup-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .powerup-card:nth-child(1) { border-color: rgba(90, 170, 220, 0.15); }
+        .powerup-card:nth-child(2) { border-color: rgba(200, 100, 125, 0.15); }
+        .powerup-card:nth-child(3) { border-color: rgba(145, 110, 210, 0.15); }
+
+        .powerup-card:nth-child(1):hover { background: rgba(90, 170, 220, 0.06); box-shadow: 0 0 40px rgba(90, 170, 220, 0.1); }
+        .powerup-card:nth-child(2):hover { background: rgba(200, 100, 125, 0.06); box-shadow: 0 0 40px rgba(200, 100, 125, 0.1); }
+        .powerup-card:nth-child(3):hover { background: rgba(145, 110, 210, 0.06); box-shadow: 0 0 40px rgba(145, 110, 210, 0.1); }
+
+        .powerup-visual {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 24px;
+        }
+
+        /* Cross Blast animation */
+        .cross-blast-anim {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cross-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 28px;
+            height: 28px;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #5AAADC, #A0D7F5);
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(90, 170, 220, 0.6);
+            animation: crossPulse 2s ease-in-out infinite;
+        }
+
+        .cross-h, .cross-v {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(90, 170, 220, 0.5), rgba(160, 215, 245, 0.8), rgba(90, 170, 220, 0.5), transparent);
+            animation: crossExpand 2s ease-in-out infinite;
+        }
+
+        .cross-h {
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            transform: translateY(-50%);
+        }
+
+        .cross-v {
+            top: 0;
+            left: 50%;
+            width: 3px;
+            height: 100%;
+            transform: translateX(-50%);
+        }
+
+        .cross-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #A0D7F5;
+            border-radius: 2px;
+            opacity: 0;
+            animation: crossParticle 2s ease-out infinite;
+        }
+
+        .cross-particle:nth-child(3) { top: 50%; left: 10%; animation-delay: 0.2s; }
+        .cross-particle:nth-child(4) { top: 50%; right: 10%; animation-delay: 0.4s; }
+        .cross-particle:nth-child(5) { top: 10%; left: 50%; animation-delay: 0.3s; }
+        .cross-particle:nth-child(6) { bottom: 10%; left: 50%; animation-delay: 0.5s; }
+
+        @keyframes crossPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px rgba(90, 170, 220, 0.6); }
+            50% { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 35px rgba(90, 170, 220, 0.9); }
+        }
+
+        @keyframes crossExpand {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes crossParticle {
+            0% { opacity: 0; transform: scale(0); }
+            40% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.3); }
+        }
+
+        /* Area Blast animation */
+        .area-blast-anim {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .area-grid {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .area-cell {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #C8647D, #D88A9E);
+            border-radius: 5px;
+            opacity: 0.4;
+            animation: areaPulse 2.5s ease-in-out infinite;
+        }
+
+        .area-cell:nth-child(1) { animation-delay: 0s; }
+        .area-cell:nth-child(2) { animation-delay: 0.08s; }
+        .area-cell:nth-child(3) { animation-delay: 0.16s; }
+        .area-cell:nth-child(4) { animation-delay: 0.08s; }
+        .area-cell:nth-child(5) { animation-delay: 0s; background: linear-gradient(135deg, #E8889E, #F0A0B4); box-shadow: 0 0 16px rgba(200, 100, 125, 0.6); }
+        .area-cell:nth-child(6) { animation-delay: 0.08s; }
+        .area-cell:nth-child(7) { animation-delay: 0.16s; }
+        .area-cell:nth-child(8) { animation-delay: 0.08s; }
+        .area-cell:nth-child(9) { animation-delay: 0s; }
+
+        .area-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(200, 100, 125, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: areaRing 2.5s ease-out infinite;
+        }
+
+        .area-ring:nth-child(11) { animation-delay: 0.4s; }
+
+        @keyframes areaPulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.08); }
+        }
+
+        @keyframes areaRing {
+            0% { width: 60px; height: 60px; opacity: 0.6; }
+            100% { width: 140px; height: 140px; opacity: 0; }
+        }
+
+        /* Strike animation */
+        .strike-anim {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .strike-target {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32px;
+            height: 32px;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #916ED2, #AB92DE);
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(145, 110, 210, 0.5);
+            animation: strikePulse 3s ease-in-out infinite;
+        }
+
+        .strike-reticle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 70px;
+            height: 70px;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(145, 110, 210, 0.5);
+            border-radius: 50%;
+            animation: reticleRotate 3s linear infinite;
+        }
+
+        .strike-reticle::before, .strike-reticle::after {
+            content: '';
+            position: absolute;
+            background: rgba(145, 110, 210, 0.6);
+        }
+
+        .strike-reticle::before {
+            top: 50%;
+            left: -8px;
+            right: -8px;
+            height: 1.5px;
+            transform: translateY(-50%);
+        }
+
+        .strike-reticle::after {
+            left: 50%;
+            top: -8px;
+            bottom: -8px;
+            width: 1.5px;
+            transform: translateX(-50%);
+        }
+
+        .strike-shard {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #AB92DE;
+            border-radius: 1px;
+            opacity: 0;
+            animation: shardBurst 3s ease-out infinite;
+        }
+
+        .strike-shard:nth-child(3) { top: 30%; left: 25%; animation-delay: 1.5s; transform: rotate(45deg); }
+        .strike-shard:nth-child(4) { top: 25%; right: 30%; animation-delay: 1.7s; transform: rotate(20deg); }
+        .strike-shard:nth-child(5) { bottom: 30%; left: 30%; animation-delay: 1.6s; transform: rotate(60deg); }
+        .strike-shard:nth-child(6) { bottom: 25%; right: 25%; animation-delay: 1.8s; transform: rotate(35deg); }
+        .strike-shard:nth-child(7) { top: 20%; left: 50%; animation-delay: 1.55s; transform: rotate(10deg); }
+        .strike-shard:nth-child(8) { bottom: 20%; left: 45%; animation-delay: 1.75s; transform: rotate(70deg); }
+
+        @keyframes strikePulse {
+            0%, 40% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            55% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.4; }
+            70% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            85%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        @keyframes reticleRotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes shardBurst {
+            0%, 45% { opacity: 0; transform: translate(0, 0) scale(0); }
+            55% { opacity: 1; transform: translate(0, 0) scale(1); }
+            80% { opacity: 0; transform: translate(var(--dx, 15px), var(--dy, -15px)) scale(0.3); }
+            100% { opacity: 0; }
+        }
+
+        .strike-shard:nth-child(3) { --dx: -20px; --dy: -15px; }
+        .strike-shard:nth-child(4) { --dx: 20px; --dy: -18px; }
+        .strike-shard:nth-child(5) { --dx: -18px; --dy: 15px; }
+        .strike-shard:nth-child(6) { --dx: 22px; --dy: 18px; }
+        .strike-shard:nth-child(7) { --dx: 0px; --dy: -25px; }
+        .strike-shard:nth-child(8) { --dx: -5px; --dy: 22px; }
+
+        .powerup-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .powerup-card .powerup-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .powerup-card:nth-child(1) .powerup-tag { background: rgba(90, 170, 220, 0.15); color: #A0D7F5; }
+        .powerup-card:nth-child(2) .powerup-tag { background: rgba(200, 100, 125, 0.15); color: #EB9BAA; }
+        .powerup-card:nth-child(3) .powerup-tag { background: rgba(145, 110, 210, 0.15); color: #BEAAE6; }
+
+        .powerup-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .powerups-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+        }
+
+        /* Crystal showcase */
+        .showcase {
+            position: relative;
+            z-index: 1;
+            padding: 60px 0 80px;
+        }
+
+        .showcase-inner {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .showcase-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .crystal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .crystal-block {
+            width: 72px;
+            height: 72px;
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            animation: crystalPulse 3s ease-in-out infinite;
+        }
+
+        .crystal-block::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+
+        .crystal-block:nth-child(1) { background: linear-gradient(135deg, #5AAADC, #7BC0E8); animation-delay: 0s; }
+        .crystal-block:nth-child(2) { background: linear-gradient(135deg, #C8647D, #D88A9E); animation-delay: 0.3s; }
+        .crystal-block:nth-child(3) { background: linear-gradient(135deg, #3CC3AA, #6BD4C2); animation-delay: 0.6s; }
+        .crystal-block:nth-child(4) { background: linear-gradient(135deg, #916ED2, #AB92DE); animation-delay: 0.9s; }
+        .crystal-block:nth-child(5) { background: linear-gradient(135deg, #D2AA46, #DEC06E); animation-delay: 1.2s; }
+        .crystal-block:nth-child(6) { background: linear-gradient(135deg, #4BC37D, #72D49A); animation-delay: 1.5s; }
+
+        @keyframes crystalPulse {
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .showcase-content {
+            flex: 1;
+        }
+
+        .showcase-content .section-label {
+            text-align: left;
+        }
+
+        .showcase-content h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .showcase-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 28px;
+            font-size: 15px;
+        }
+
+        .stat-row {
+            display: flex;
+            gap: 32px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--ice-blue), var(--ice-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        /* CTA */
+        .cta {
+            position: relative;
+            z-index: 1;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(90, 170, 220, 0.08), rgba(60, 195, 170, 0.06));
+            border: 1px solid rgba(90, 170, 220, 0.12);
+            border-radius: 28px;
+            padding: 60px 40px;
+        }
+
+        .cta-box h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-brand-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--ice-blue), var(--ice-teal));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 12px;
+            color: var(--navy);
+        }
+
+        .footer-brand span {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero { padding: 130px 0 60px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .showcase-inner { flex-direction: column; gap: 40px; }
+            .showcase-content .section-label { text-align: center; }
+            .showcase-content h2 { text-align: center; }
+            .showcase-content p { text-align: center; }
+            .stat-row { justify-content: center; }
+            .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+            .nav-links { gap: 16px; }
+            .nav-links a { font-size: 13px; }
+            .section-title { font-size: 28px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 28px; }
+            .hero-logo { width: 200px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Snowfall -->
+    <div class="snowfall" id="snowfall"></div>
+
+    <!-- Nav -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-brand-icon">V</div>
+                <span>Vedrix Labs</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="terms-of-use.html">Terms</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="hero-logo">
+                <img src="assets/ice_block_blast_logo.png" alt="Ice Block Blast Logo">
+            </div>
+            <p class="hero-tagline">A Vedrix Labs Game</p>
+            <h1>Match. Blast. Freeze.</h1>
+            <p class="hero-subtitle">Place crystal ice blocks on a 9x9 board, clear lines with strategic precision, and unleash powerful blasts in this frosty puzzle adventure.</p>
+            <div class="hero-buttons">
+                <a href="https://play.google.com/store/apps/details?id=com.vedrixlabs.iceblockblast" class="btn btn-primary" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-2.302 2.302L15.396 12l2.302-2.492zM5.864 2.658L16.8 9.99l-2.302 2.302-8.634-8.634z"/></svg>
+                    Google Play
+                </a>
+                <a href="https://apps.apple.com/app/com.vedrixlabs.iceblockblast" class="btn btn-secondary" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    App Store
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <p class="section-label">Features</p>
+            <h2 class="section-title">Chill Puzzles, Cool Mechanics</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#10052;</div>
+                    <h3>6 Crystal Colors</h3>
+                    <p>Beautiful ice crystal blocks in Blue, Teal, Violet, Rose, Amber, and Mint -- each with unique glow effects and frosty details.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9889;</div>
+                    <h3>Powerful Blasts</h3>
+                    <p>Trigger Cross Blast to clear entire rows and columns, or Area Blast to shatter a 3x3 zone of blocks instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9823;</div>
+                    <h3>Strategic Gameplay</h3>
+                    <p>Place 21 distinct piece shapes on the 9x9 board. Plan your moves carefully to clear lines and rack up massive combo scores.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9670;</div>
+                    <h3>Diamond Economy</h3>
+                    <p>Earn diamonds through score milestones. Spend them on Undo to reverse mistakes or Strike to erase any block on the board.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127942;</div>
+                    <h3>Chase High Scores</h3>
+                    <p>Beat your personal best with every game. Watch for the gold pulse when you hit a new record and climb the leaderboard.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127912;</div>
+                    <h3>Icy Atmosphere</h3>
+                    <p>Immerse yourself in a frosty world with snowfall effects, crystal shards, smooth animations, and a deep navy palette.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <!-- Powerups -->
+    <section class="powerups">
+        <div class="container">
+            <p class="section-label">Powerups</p>
+            <h2 class="section-title">Unleash Devastating Blasts</h2>
+            <div class="powerups-grid">
+                <div class="powerup-card">
+                    <div class="powerup-visual">
+                        <div class="cross-blast-anim">
+                            <div class="cross-h"></div>
+                            <div class="cross-v"></div>
+                            <div class="cross-particle"></div>
+                            <div class="cross-particle"></div>
+                            <div class="cross-particle"></div>
+                            <div class="cross-particle"></div>
+                            <div class="cross-center"></div>
+                        </div>
+                    </div>
+                    <h3>Cross Blast</h3>
+                    <p>Place a crystal with a cross powerup and watch it detonate -- clearing the entire intersecting row and column in a single satisfying blast.</p>
+                </div>
+                <div class="powerup-card">
+                    <div class="powerup-visual">
+                        <div class="area-blast-anim">
+                            <div class="area-grid">
+                                <div class="area-cell"></div>
+                                <div class="area-cell"></div>
+                                <div class="area-cell"></div>
+                                <div class="area-cell"></div>
+                                <div class="area-cell"></div>
+                                <div class="area-cell"></div>
+                                <div class="area-cell"></div>
+                                <div class="area-cell"></div>
+                                <div class="area-cell"></div>
+                            </div>
+                            <div class="area-ring"></div>
+                            <div class="area-ring"></div>
+                        </div>
+                    </div>
+                    <h3>Area Blast</h3>
+                    <p>Trigger a shockwave that shatters every block in a 3x3 zone. Perfect for clearing tight spots and creating space when you need it most.</p>
+                </div>
+                <div class="powerup-card">
+                    <div class="powerup-visual">
+                        <div class="strike-anim">
+                            <div class="strike-reticle"></div>
+                            <div class="strike-target"></div>
+                            <div class="strike-shard"></div>
+                            <div class="strike-shard"></div>
+                            <div class="strike-shard"></div>
+                            <div class="strike-shard"></div>
+                            <div class="strike-shard"></div>
+                            <div class="strike-shard"></div>
+                        </div>
+                    </div>
+                    <h3>Strike</h3>
+                    <p>Activate the reticle, take aim, and erase any single block on the board. A precision tool for surgical plays when every cell counts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <!-- Showcase -->
+    <section class="showcase" id="about">
+        <div class="container">
+            <div class="showcase-inner">
+                <div class="showcase-visual">
+                    <div class="crystal-grid">
+                        <div class="crystal-block"></div>
+                        <div class="crystal-block"></div>
+                        <div class="crystal-block"></div>
+                        <div class="crystal-block"></div>
+                        <div class="crystal-block"></div>
+                        <div class="crystal-block"></div>
+                    </div>
+                </div>
+                <div class="showcase-content">
+                    <p class="section-label">The Game</p>
+                    <h2>Simple to Learn, Hard to Master</h2>
+                    <p>Ice Block Blast combines the satisfying mechanics of block puzzles with a beautiful frozen aesthetic. Drag and drop crystal pieces onto the board, complete rows and columns to clear them, and use strategic powerups to keep your game alive. Every session is unique with randomized pieces and powerup chances.</p>
+                    <div class="stat-row">
+                        <div class="stat">
+                            <div class="stat-value">9x9</div>
+                            <div class="stat-label">Board Size</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">21</div>
+                            <div class="stat-label">Piece Shapes</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">6</div>
+                            <div class="stat-label">Crystal Colors</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Powerups</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Ready to Break the Ice?</h2>
+                <p>Download Ice Block Blast for free and start your frosty puzzle adventure today.</p>
+                <div class="hero-buttons">
+                    <a href="https://play.google.com/store/apps/details?id=com.vedrixlabs.iceblockblast" class="btn btn-primary" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-2.302 2.302L15.396 12l2.302-2.492zM5.864 2.658L16.8 9.99l-2.302 2.302-8.634-8.634z"/></svg>
+                        Google Play
+                    </a>
+                    <a href="https://apps.apple.com/app/com.vedrixlabs.iceblockblast" class="btn btn-secondary" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        App Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <div class="footer-brand-icon">V</div>
+                    <span>Vedrix Labs</span>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-use.html">Terms of Use</a>
+                    <a href="mailto:vedrixlabs@gmail.com">Contact</a>
+                </div>
+                <p class="footer-copy">&copy; 2025 Vedrix Labs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Snowfall
+        const snowfall = document.getElementById('snowfall');
+        const flakes = ['&#10052;', '&#10053;', '&#8226;'];
+        for (let i = 0; i < 30; i++) {
+            const el = document.createElement('div');
+            el.className = 'snowflake';
+            el.innerHTML = flakes[Math.floor(Math.random() * flakes.length)];
+            el.style.left = Math.random() * 100 + '%';
+            el.style.fontSize = (8 + Math.random() * 12) + 'px';
+            el.style.opacity = 0.05 + Math.random() * 0.15;
+            el.style.animationDuration = (8 + Math.random() * 16) + 's';
+            el.style.animationDelay = Math.random() * 10 + 's';
+            snowfall.appendChild(el);
+        }
+    </script>
+</body>
+</html>

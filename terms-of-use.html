@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use - Vedrix Labs</title>
+    <meta name="description" content="Terms of Use for Ice Block Blast by Vedrix Labs.">
+    <link rel="icon" type="image/png" href="assets/ice_block_blast_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0C1E33;
+            --navy-light: #122a45;
+            --ice-blue: #5AAADC;
+            --ice-teal: #3CC3AA;
+            --frost-white: #E8F4FA;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.45);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--navy);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(12, 30, 51, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(90, 170, 220, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--ice-blue), var(--ice-teal));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--navy);
+        }
+
+        .nav-brand span { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text-primary); }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        .page-header {
+            padding: 130px 0 40px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--frost-white), var(--ice-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .legal-content {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 20px 24px 80px;
+        }
+
+        .legal-content h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 40px 0 16px;
+            color: var(--frost-white);
+        }
+
+        .legal-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 24px 0 10px;
+            color: var(--ice-blue);
+        }
+
+        .legal-content p, .legal-content li {
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .legal-content ul, .legal-content ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .legal-content a {
+            color: var(--ice-blue);
+            text-decoration: none;
+        }
+
+        .legal-content a:hover { text-decoration: underline; }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-brand { display: flex; align-items: center; gap: 8px; }
+
+        .footer-brand-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--ice-blue), var(--ice-teal));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 12px;
+            color: var(--navy);
+        }
+
+        .footer-brand span { font-weight: 600; font-size: 14px; }
+
+        .footer-links { display: flex; gap: 28px; }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text-secondary); }
+
+        .footer-copy { color: var(--text-muted); font-size: 13px; }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 30px; }
+            .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+            .nav-links { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-brand-icon">V</div>
+                <span>Vedrix Labs</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="terms-of-use.html">Terms</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Terms of Use</h1>
+            <p>Last updated: March 7, 2026</p>
+        </div>
+    </div>
+
+    <div class="legal-content">
+        <p>These Terms of Use ("Terms") govern your access to and use of the Ice Block Blast mobile application ("App") developed and published by Vedrix Labs ("we," "our," or "us"). By downloading, installing, or using the App, you agree to be bound by these Terms. If you do not agree, do not use the App.</p>
+
+        <h2>1. Eligibility</h2>
+        <p>You must be at least 13 years of age to use this App. If you are under 18, you represent that your parent or legal guardian has reviewed and agreed to these Terms on your behalf. By using the App, you represent and warrant that you meet these eligibility requirements.</p>
+
+        <h2>2. License</h2>
+        <p>Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to download, install, and use the App on a compatible mobile device that you own or control, solely for your personal, non-commercial entertainment purposes.</p>
+
+        <h2>3. Restrictions</h2>
+        <p>You agree not to:</p>
+        <ul>
+            <li>Copy, modify, distribute, sell, or lease any part of the App</li>
+            <li>Reverse engineer, decompile, or disassemble the App or attempt to extract its source code</li>
+            <li>Use cheats, exploits, automation software, bots, hacks, mods, or any unauthorized third-party software to modify or interfere with the App</li>
+            <li>Use the App for any illegal, fraudulent, or unauthorized purpose</li>
+            <li>Attempt to gain unauthorized access to any systems or networks connected to the App</li>
+            <li>Interfere with or disrupt the integrity or performance of the App or its related systems</li>
+            <li>Submit false, misleading, or offensive content to leaderboards or any other feature of the App</li>
+        </ul>
+
+        <h2>4. In-App Economy</h2>
+
+        <h3>4.1 Virtual Currency</h3>
+        <p>The App features an in-game virtual currency called "Diamonds." Diamonds can be earned through gameplay (score milestones) or by watching rewarded advertisements. Diamonds have no real-world monetary value and cannot be exchanged, transferred, or redeemed for real currency or any item of value outside the App.</p>
+
+        <h3>4.2 Powerups</h3>
+        <p>Diamonds may be spent on in-game powerups such as "Undo" and "Strike." These powerups are consumable and non-refundable once used. All in-game transactions are final.</p>
+
+        <h3>4.3 No Ownership</h3>
+        <p>You acknowledge that you have no ownership or property interest in any virtual currency, virtual items, or any other in-game content. Any "purchase" of virtual content is a purchase of a limited, revocable, non-transferable license to use that content within the App -- not a transfer of ownership.</p>
+
+        <h3>4.4 In-App Purchases</h3>
+        <p>If we offer in-app purchases in the future, they will be subject to the terms and policies of the applicable app store (Google Play Store or Apple App Store). All purchases are processed by the respective platform, and you should review their refund policies. Prices are exclusive of any applicable taxes or charges, which will be your responsibility.</p>
+
+        <h2>5. Advertisements</h2>
+        <p>The App displays advertisements, including banner ads and optional rewarded video ads. By using the App, you consent to the display of such advertisements. Ad delivery is managed by third-party ad networks (including Google AdMob), which are subject to their own terms and privacy policies.</p>
+
+        <h2>6. Leaderboard</h2>
+        <p>The App may include a leaderboard feature. By submitting your score, you grant us the right to display your submitted name and score publicly. We reserve the right to remove any leaderboard entry that we determine, in our sole discretion, to be fraudulent, offensive, or in violation of these Terms.</p>
+
+        <h2>7. Intellectual Property</h2>
+        <p>All content in the App -- including but not limited to graphics, artwork, animations, sounds, text, game design, code, and the "Ice Block Blast" name and logo -- is owned by or licensed to Vedrix Labs and is protected by intellectual property laws. You may not use any of our intellectual property without prior written permission.</p>
+
+        <h2>8. User Content</h2>
+        <p>If you submit any content through the App (such as a leaderboard display name), you represent that:</p>
+        <ul>
+            <li>You have the right to submit such content</li>
+            <li>The content does not violate any law or infringe any third-party rights</li>
+            <li>The content is not offensive, obscene, threatening, or otherwise objectionable</li>
+        </ul>
+        <p>By submitting content, you grant Vedrix Labs a non-exclusive, worldwide, royalty-free, perpetual, irrevocable license to use, display, reproduce, and distribute that content in connection with the App and our services. We reserve the right to remove any user content at our discretion without notice.</p>
+
+        <h2>9. Updates and Modifications</h2>
+        <p>We may from time to time issue updates, patches, or modifications to the App. These updates may be required for you to continue using the App. We may also modify, suspend, or discontinue any feature of the App at any time without liability to you. Your continued use of the App after any update constitutes acceptance of that update.</p>
+
+        <h2>10. Third-Party Platforms and Services</h2>
+        <p>The App is made available through third-party platforms (Google Play Store, Apple App Store). Your use of these platforms is subject to their respective terms and conditions. We are not responsible for the practices or policies of any third-party platform. The App may also contain links to third-party websites or services. We do not endorse and are not responsible for the content or practices of any linked third-party services.</p>
+
+        <h2>11. Feedback</h2>
+        <p>If you provide us with any feedback, suggestions, or ideas regarding the App ("Feedback"), you acknowledge that such Feedback is non-confidential and you grant Vedrix Labs an unrestricted, perpetual, irrevocable, royalty-free right to use, modify, and incorporate such Feedback for any purpose without compensation or attribution to you.</p>
+
+        <h2>12. Disclaimer of Warranties</h2>
+        <p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE APP WILL BE UNINTERRUPTED, ERROR-FREE, SECURE, OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.</p>
+
+        <h2>13. Limitation of Liability</h2>
+        <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, VEDRIX LABS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF OR INABILITY TO USE THE APP, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+
+        <h2>14. Indemnification</h2>
+        <p>You agree to indemnify, defend, and hold harmless Vedrix Labs and its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including reasonable attorneys' fees) arising out of or related to your use of the App or your violation of these Terms.</p>
+
+        <h2>15. Termination</h2>
+        <p>We reserve the right to suspend or terminate your access to the App at any time, with or without cause, and with or without notice. Upon termination, your license to use the App will immediately cease. Sections that by their nature should survive termination will survive, including but not limited to intellectual property provisions, disclaimers, and limitations of liability.</p>
+
+        <h2>16. Force Majeure</h2>
+        <p>Vedrix Labs shall not be liable for any failure or delay in performing its obligations under these Terms where such failure or delay arises from circumstances beyond our reasonable control, including but not limited to natural disasters, acts of government, pandemic, internet or telecommunications failures, power outages, or cyberattacks.</p>
+
+        <h2>17. Export Controls</h2>
+        <p>You agree to comply with all applicable export control and sanctions laws and regulations, including those of India, the United States, the European Union, and any other relevant jurisdiction. You represent that you are not located in, or a resident or national of, any country subject to comprehensive trade sanctions, and you are not on any restricted party list.</p>
+
+        <h2>18. Assignment</h2>
+        <p>Vedrix Labs may assign or transfer these Terms, or any rights or obligations hereunder, without restriction and without your consent. You may not assign or transfer these Terms or any of your rights or obligations without our prior written consent.</p>
+
+        <h2>19. Waiver</h2>
+        <p>The failure of Vedrix Labs to enforce any right or provision of these Terms shall not constitute a waiver of such right or provision. Any waiver must be in writing and signed by Vedrix Labs.</p>
+
+        <h2>20. Changes to These Terms</h2>
+        <p>We may modify these Terms at any time. We will notify you of material changes by posting the updated Terms within the App or on our website with a new "Last updated" date. Your continued use of the App after any changes constitutes acceptance of the revised Terms.</p>
+
+        <h2>21. Governing Law</h2>
+        <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in India.</p>
+
+        <h2>22. Severability</h2>
+        <p>If any provision of these Terms is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary so that these Terms shall otherwise remain in full force and effect.</p>
+
+        <h2>23. Entire Agreement</h2>
+        <p>These Terms, together with our <a href="privacy-policy.html">Privacy Policy</a>, constitute the entire agreement between you and Vedrix Labs regarding your use of the App and supersede any prior agreements.</p>
+
+        <h2>24. Contact Us</h2>
+        <p>If you have any questions about these Terms, please contact us at:</p>
+        <p>
+            <strong>Vedrix Labs</strong><br>
+            Email: <a href="mailto:vedrixlabs@gmail.com">vedrixlabs@gmail.com</a>
+        </p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <div class="footer-brand-icon">V</div>
+                    <span>Vedrix Labs</span>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-use.html">Terms of Use</a>
+                </div>
+                <p class="footer-copy">&copy; 2025 Vedrix Labs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

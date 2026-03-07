@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(mkdir:*)",
+      "Bash(open:*)",
+      "WebFetch(domain:www.king.com)"
+    ]
+  }
+}
